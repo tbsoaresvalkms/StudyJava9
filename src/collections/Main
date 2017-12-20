@@ -1,0 +1,170 @@
+Map<Integer,String> diasDaSemana = Map.of(1, "Domingo", 2, "Segunda", 3, "Terca", 4, "Quarta", 5, "Quinta", 6, "Sexta", 7, "Sabado");
+diasDaSemana
+List<String> nomes = List.of("Rodrigo", "Vivian", "Alexandre");
+Set<String> cores = Set.of("azul", "vermeho", "amarelo");
+cores.add("azul");
+cores.add("azul");
+List<String> nomesMutaveis = nomes.stream().collect(Collectors.toList());
+nomesMutaveis.add("Bruna")
+nomesMutaveis.stream().map(c->c.substring(3)).forEach(System.out::println)
+nomesMutaveis.stream().map(c->c.substring(0,3)).forEach(System.out::println)
+diasDaSemana.entrySet().stream().map(c->c.getValue().substring(0,3)).forEach(System.out::println)
+int a = 2;
+Stream.of(a)
+Stream<Integer> listA = Stream.of(a);
+listA.map(c -> c * 2).forEach(System.out::println)
+Stream.of(diasDaSemana)
+Stream<Map<Integer,String>> streamMap = Stream.of(diasDaSemana);
+nomesMutaveis.add(null)
+nomesMutaveis
+nomesMutaveis.stream().map(c->c.substring(3)).forEach(System.out::println)
+nomesMutaveis.stream().map(c->Stream.ofNullable(c).map(j->j.substring(3))).forEach(System.out::println)
+nomesMutaveis.stream().flatMap(c->Stream.ofNullable(c).map(j->j.substring(3))).forEach(System.out::println)
+nomesMutaveis.stream().flatMap(c->Stream.ofNullable(c).map(j->j.substring(3))).forEach(System.out::println)
+nomesMutaveis.stream().flatMap(c->Stream.ofNullable(c).map(j->j.substring(3))).forEach(System.out::println)
+nomesMutaveis.stream().flatMap(c->Stream.ofNullable(c)).map(j->j.substring(3)).forEach(System.out::println)
+nomesMutaveis.stream().filter(c->c!=null).map(c->c.substring(0,3)).forEach(System.out::println)
+LongStream numeros = LongStream.range(0,100);
+LongStream menores50 = numeros.takeWhile(n-> n < 50);
+menores50.forEach(System.out::println)
+numeros = LongStream.range(0,100);
+menores50maiores10.forEach(System.out::println)
+numeros = LongStream.range(0,100);
+LongStream menores50maiores10 = numeros.takeWhile(n-> n < 50).dropWhile(j->j<10);
+menores50maiores10.forEach(System.out::println)
+numeros
+numeros = LongStream.range(0,100)
+numeros.iterator()
+numeros = LongStream.range(0,100)
+List<Long> listNumeros = numeros.boxed().collect(Collectors.toList());
+boolean par = false;
+Stream.iterate(0, c -> par, n->n+2).forEach(n -> {if(n > 50) par = true; else System.out.println(n);})
+Stream.iterate(0, c -> par, n->n+2).forEach(n -> {if(n > 50) par = true; else System.out.println(n);})
+par = true
+Stream.iterate(0, c -> par, n->n+2).forEach(n -> {if(n > 50) par = false; else System.out.println(n);})
+public enum Category {
+PROGRAMMING,
+
+DESIGN,
+AGILE,
+CERTIFICATION,
+
+BUSINESS
+}
+Books.all().forEach(System.out::println)
+Books.all().stream().filter(c->c.getCategories().contains(Category.PROGRAMMING)).forEach(System.out::println)
+Books.all().stream().filter(c->c.getCategories().contains(Category.PROGRAMMING)).forEach(System.out::println)
+Books.all().stream().filter(c->c.getCategories().contains(Category.PROGRAMMING)).collect(Collectors.groupingBy(Book::getAuthor))
+Map<String,List<Book>> authorBook = Books.all().stream().filter(c->c.getCategories().contains(Category.PROGRAMMING)).collect(Collectors.groupingBy(Book::getAuthor));
+authorBook.size()
+authorBook
+authorBookCompleted
+authorBookCompleted.size()
+Books
+	.all()
+	.forEach(System.out::println);
+Map<String,List<Book>> authorBookCompleted = Books
+	.all()
+	.stream()
+	.collect(
+		Collectors.groupingBy(
+			Book::getAuthor, 
+			Collectors.filtering(
+				b->b.getCategories().contains(Category.PROGRAMMING)
+				, Collectors.toList())));
+Books.all().stream().collect(Collectors.groupingBy(Book::getCategories))
+Books.all().stream().collect(Collectors.groupingBy(Book::getAuthor, Collectors.mapping(Book::getCategories, Collectors.toList())))
+Map<String,List<List<Category>>> authorCategories = Books.all().stream().collect(Collectors.groupingBy(Book::getAuthor, Collectors.mapping(Book::getCategories, Collectors.toList())));
+Map<String,List<Category>> authorCategoriesCorrect = Books.all().stream().collect(Collectors.groupingBy(Book::getAuthor, Collectors.flatMapping(c->c.getCategories().stream(), Collectors.toList())));
+public class Book {
+private final String name;
+private final String author;
+private final List<Category> categories;
+public Book(String name, String author, Category ...categories)
+{
+this.name = name;
+this.author = author;
+this.categories = List.of(categories);
+}
+public String getAuthor() {
+return author;
+}
+public String getName() {
+return name;
+}
+public List<Category> getCategories() {
+return categories;
+}
+@Override
+public String toString() {
+return "\nlivro: " + name
++ "\nautor: " + author
++ "\ncategorias: " + categories;
+}
+}
+public class Books {
+public static List<Book> all() {
+return List.of(
+new Book(
+"Desbravando Java",
+"Rodrigo Turini",
+Category.PROGRAMMING
+),
+new Book(
+"APIs Java",
+"Rodrigo Turini",
+Category.PROGRAMMING
+),
+new Book(
+"Certificação Java",
+"Guilherme Silveira",
+Category.PROGRAMMING, Category.CERTIFICATION
+),
+new Book(
+"TDD",
+"Mauricio Aniche",
+Category.PROGRAMMING, Category.AGILE
+),
+new Book(
+"SOLID",
+"Mauricio Aniche",
+Category.PROGRAMMING
+),
+new Book(
+"Guia da Startup",
+"Joaquim Torres",
+Category.BUSINESS
+)
+);
+}
+public static Optional<Book> findSimilar(Book book) {
+return Books.all().stream()
+.filter(b -> b.getCategories().equals(book.getCategories(
+)))
+.filter(b -> !b.getAuthor().equals(book.getAuthor()))
+.findAny();
+}
+}
+Book book = new Book("Java", "Rodrigo Turini", Category.PROGRAMMING);
+Books.findSimilar(book)
+Books.findSimilar(book).get()
+Books.findSimilar(book).get().getClass()
+Books.findSimilar(book).get()
+Books.findSimilar(book)
+Book book2 = new Book("Guia", "Joaquim Torres", Category.BUSINESS);
+Books.findSimilar(book2)
+void processFindBook(Optional<Book> book){
+book.ifPresentOrElse(System.out::println, () -> System.out.println("Comeca java"));
+}
+processFindBook(Books.findSimilar(book))
+processFindBook(Books.findSimilar(book2))
+Stream<Book> streamBook = Books.findSimilar(book).stream();
+Stream<Optional<Book>> listOptional = Books.all().stream().map(Books::findSimilar);
+Stream<Book>  listStream = Books.all().stream().map(Books::findSimilar).flatMap(Optional::stream);
+Books.all().stream().map(Books::findSimilar).flatMap(Optional::stream).collect(Collectors.toList()).forEach(System.out::println)
+Books.all().stream().map(Books::findSimilar).flatMap(Optional::stream).forEach(System.out::println)
+Books.all().stream().map(Books::findSimilar)
+Books.all().stream().map(Books::findSimilar).getClass()
+Books.all().stream().map(b -> Books.findSimilar(b).stream())
+Stream<Stream<Book>> streamStream = Books.all().stream().map(b -> Books.findSimilar(b).stream());
+Books.all().stream().flatMap(b -> Books.findSimilar(b).stream()).forEach(System.out::println)

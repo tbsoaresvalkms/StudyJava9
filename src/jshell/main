@@ -1,0 +1,44 @@
+import java.time.LocalDate;
+LocalDate.now()
+1 + 2
+1 + 2
+System.out.println("Ola Mundo")
+System.out.println("Ola Mundo!!@!#")
+"age"
+2
+1+2
+System.out.println("ola")
+2+2
+2+2
+int a = 2+2;
+a
+2+2
+long fib(long n){
+if(n<2) return n;
+return fib(n-1) + fib(n-2);
+}
+fib(10)
+fib(1)
+fib(2)
+fib(3)
+fib(4)
+fib(5)
+fib(6)
+fib(7)
+fib(8)
+fib(9)
+3+3
+for(int i = 0; i< 10; i++){
+    fib(i);
+}
+for(int i = 0; i< 10; i++){
+    System.out.println(fib(i));
+}
+LocalDate.now().isAfter(LocalDate.now().plusMonths(1))
+LocalDate.now().isAfter(LocalDate.now().plusMonths(-1))
+System.out.println("shift + tab + i -> auto import")
+LongStream.range(0,10).map(c->fib(c)).forEach(System.out::println);
+LocalDate today = LocalDate.now();
+System.out.println("shit + alt + v -> Declara variavel")
+String.valueOf("bunda")
+Stream.ofNullable(LocalDate.now())
